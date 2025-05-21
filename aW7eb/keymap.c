@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "features/sentence_case.h"
 #include "features/custom_shift_keys.h"
 #include "features/select_word.h"
 
