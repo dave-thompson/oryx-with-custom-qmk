@@ -20,16 +20,13 @@ enum custom_keycodes {
 };
 
 
-#define DUAL_FUNC_0 LT(18, KC_F15)
-#define DUAL_FUNC_1 LT(29, KC_T)
-#define DUAL_FUNC_2 LT(18, KC_Q)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,
-    KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 KC_TRANSPARENT, DUAL_FUNC_0,    KC_F,           KC_O,           KC_U,           KC_J,           KC_TRANSPARENT,
+    KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_TRANSPARENT,
     KC_TAB,         KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_K,           KC_P,           DUAL_FUNC_1,    DUAL_FUNC_2,    OSL(2),         KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_K,           KC_P,           KC_COMMA,       KC_DOT,         OSL(2),         KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_LEFT_CTRL,   KC_TRANSPARENT,
@@ -163,51 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Oryx Stuff
   switch (keycode) {
 
-    case DUAL_FUNC_0:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_QUOTE);
-        } else {
-          unregister_code16(KC_QUOTE);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_DQUO);
-        } else {
-          unregister_code16(KC_DQUO);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_1:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_COMMA);
-        } else {
-          unregister_code16(KC_COMMA);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_QUES);
-        } else {
-          unregister_code16(KC_QUES);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_2:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_DOT);
-        } else {
-          unregister_code16(KC_DOT);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_EXLM);
-        } else {
-          unregister_code16(KC_EXLM);
-        }  
-      }  
-      return false;
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
