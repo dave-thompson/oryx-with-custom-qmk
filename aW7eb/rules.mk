@@ -9,3 +9,4 @@ LTO_ENABLE = yes
 
 # Non-Oryx rules
 SRC += features/custom_shift_keys.c
+SRC += features/select_word.c

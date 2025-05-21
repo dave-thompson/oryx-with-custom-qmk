@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "features/custom_shift_keys.h"
+#include "features/select_word.h"
 
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_DOT , KC_EXLM}, // Shift . is !
@@ -13,8 +14,10 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
+  SELWFWD,
+  SELWBAK,
+  SELLINE,
 };
-
 
 #define DUAL_FUNC_0 LT(23, KC_0)
 #define DUAL_FUNC_1 LT(27, KC_5)
@@ -53,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_N),     LGUI(KC_W),     KC_DOWN,        LGUI(KC_M),     LGUI(KC_I),     KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, LALT(KC_LEFT),  KC_UP,          LALT(KC_RIGHT), KC_BSPC,        KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_A),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     LGUI(KC_B),                                                                     KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)),LGUI(KC_TAB),   LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, LGUI(KC_LEFT),  LGUI(KC_SPACE), LGUI(KC_RIGHT), KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_N),     LGUI(KC_W),     KC_DOWN,        LGUI(KC_M),     LGUI(KC_I),     KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, LALT(KC_LEFT),  KC_UP,          SELWBAK,        KC_BSPC,        KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_A),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     LGUI(KC_B),                                                                     KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_RIGHT,       SELWFWD,        KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)),LGUI(KC_TAB),   LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT,SELLINE,        LGUI(KC_SPACE), LGUI(KC_RIGHT), KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -124,8 +127,37 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Custom Stuff
+  // Custom Stuff - Custom Shift Keys
   if (!process_custom_shift_keys(keycode, record)) { return false; }
+  
+  // Custom Stuff - Select Word
+  if (!process_select_word(keycode, record)) { return false; }
+
+  switch (keycode) {
+    case SELWBAK:  // Backward word selection.
+      if (record->event.pressed) {
+        select_word_register('B');
+      } else {
+        select_word_unregister();
+      }
+      break;
+
+    case SELWFWD:  // Forward word selection.
+      if (record->event.pressed) {
+        select_word_register('W');
+      } else {
+        select_word_unregister();
+      }
+      break;
+
+    case SELLINE:  // Line selection.
+      if(record->event.pressed) {
+        select_word_register('L');
+      } else {
+        select_word_unregister();
+      }
+      break;
+  }
 
   // Oryx Stuff
   switch (keycode) {
