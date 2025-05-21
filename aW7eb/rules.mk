@@ -6,3 +6,6 @@ SPACE_CADET_ENABLE = no
 REPEAT_KEY_ENABLE = yes
 LAYER_LOCK_ENABLE = yes
 LTO_ENABLE = yes
+
+# Non-Oryx rules
+SRC += features/custom_shift_keys.c

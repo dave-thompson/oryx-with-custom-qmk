@@ -1,5 +1,15 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "features/custom_shift_keys.h"
+
+const custom_shift_key_t custom_shift_keys[] = {
+  {KC_DOT , KC_EXLM}, // Shift . is !
+  {KC_COMM, KC_QUES}, // Shift , is ?
+  {KC_QUOTE, KC_DOUBLE_QUOTE}, // Shift ' is "
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -114,6 +124,10 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Custom Stuff
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
+
+  // Oryx Stuff
   switch (keycode) {
 
     case DUAL_FUNC_0:
