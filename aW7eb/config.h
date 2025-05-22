@@ -8,7 +8,7 @@
 #undef ONESHOT_TIMEOUT
 #define ONESHOT_TIMEOUT 5000
 
-#define SENTENCE_CASE_TIMEOUT 120000  // 2 minutes
+#define SENTENCE_CASE_TIMEOUT 0  // disable timeout
 
 #undef RGB_MATRIX_TIMEOUT
 #define RGB_MATRIX_TIMEOUT 60000
