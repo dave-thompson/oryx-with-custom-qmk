@@ -26,9 +26,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,
     KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           KC_TRANSPARENT,
+    KC_TRANSPARENT, MT(MOD_LSFT, KC_N),MT(MOD_LALT, KC_R),MT(MOD_LCTL, KC_T),MT(MOD_LGUI, KC_S),KC_G,                                                                           KC_Y,           MT(MOD_RGUI, KC_H),MT(MOD_RCTL, KC_A),MT(MOD_RALT, KC_E),MT(MOD_RSFT, KC_I),KC_TRANSPARENT,
     KC_TRANSPARENT, KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_K,           KC_P,           KC_COMMA,       KC_DOT,         OSL(2),         KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,
                                                                                                     KC_TRANSPARENT, KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_LEFT_CTRL,   KC_TRANSPARENT,
                                                                                     TT(3),          TT(1),          KC_LEFT_GUI,    KC_TRANSPARENT, OSM(MOD_LSFT),  KC_SPACE
@@ -67,6 +67,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MT(MOD_LSFT, KC_N):
+            return g_tapping_term + 50;
+        case MT(MOD_LALT, KC_R):
+            return g_tapping_term + 50;
+        case MT(MOD_LCTL, KC_T):
+            return g_tapping_term + 50;
+        case MT(MOD_LGUI, KC_S):
+            return g_tapping_term + 50;
+        case MT(MOD_RGUI, KC_H):
+            return g_tapping_term + 50;
+        case MT(MOD_RCTL, KC_A):
+            return g_tapping_term + 50;
+        case MT(MOD_RALT, KC_E):
+            return g_tapping_term + 50;
+        case MT(MOD_RSFT, KC_I):
+            return g_tapping_term + 50;
+        default:
+            return g_tapping_term;
+    }
+}
 
 extern rgb_config_t rgb_matrix_config;
 
