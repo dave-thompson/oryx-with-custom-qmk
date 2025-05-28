@@ -52,3 +52,8 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
+
+// Disable unneeded features to save space
+#define NO_DEBUG
+#define NO_PRINT
+
