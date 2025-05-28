@@ -153,11 +153,11 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Custom Stuff - Sentence Case
-  if (!process_sentence_case(keycode, record)) { return false; }
-
   // Custom Stuff - Custom Shift Keys
   if (!process_custom_shift_keys(keycode, record)) { return false; }
+
+  // Custom Stuff - Sentence Case
+  if (!process_sentence_case(keycode, record)) { return false; }
   
   // Custom Stuff - Select Word
   if (!process_select_word(keycode, record)) { return false; }
