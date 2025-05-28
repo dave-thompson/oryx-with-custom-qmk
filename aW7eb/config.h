@@ -54,5 +54,5 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 // Disable unneeded features to save space
-
+// #undef RGBLIGHT_ANIMATIONS
 
