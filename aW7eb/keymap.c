@@ -130,26 +130,27 @@ void set_layer_color(int layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case 0:
-      set_layer_color(0);
-      break;
-    case 1:
-      set_layer_color(1);
-      break;
-    case 2:
-      set_layer_color(2);
-      break;
-    case 3:
-      set_layer_color(3);
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-      rgb_matrix_set_color_all(0, 0, 0);
-    break;
-  }
-  return true;
+  return false;
+  // if (keyboard_config.disable_layer_led) { return false; }
+  // switch (biton32(layer_state)) {
+  //   case 0:
+  //     set_layer_color(0);
+  //     break;
+  //   case 1:
+  //     set_layer_color(1);
+  //     break;
+  //   case 2:
+  //     set_layer_color(2);
+  //     break;
+  //   case 3:
+  //     set_layer_color(3);
+  //     break;
+  //  default:
+  //   if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+  //     rgb_matrix_set_color_all(0, 0, 0);
+  //   break;
+  // }
+  // return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -206,17 +207,25 @@ char sentence_case_press_user(uint16_t keycode,
   if ((mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
     const bool shifted = mods & MOD_MASK_SHIFT;
     switch (keycode) {
+      
       case KC_A ... KC_Z:
+        set_layer_color(0);
         return 'a';  // Letter key.
 
       case KC_DOT:  // . is punctuation, Shift . is a symbol (>)
+        set_layer_color(1);
         return !shifted ? '.' : '#';
+      
       case KC_1:
       case KC_SLSH:
+        set_layer_color(2);
         return shifted ? '.' : '#';
+      
       case KC_EXLM:
       case KC_QUES:
+        set_layer_color(3);
         return '.';
+      
       case KC_2 ... KC_0:  // 2 3 4 5 6 7 8 9 0
       case KC_AT ... KC_RPRN:  // @ # $ % ^ & * ( )
       case KC_MINS ... KC_SCLN:  // - = [ ] backslash ;
@@ -224,11 +233,11 @@ char sentence_case_press_user(uint16_t keycode,
       case KC_GRV:
       case KC_COMM:
         return '#';  // Symbol key.
-
+      
       case KC_SPC:
       case KC_ENTER: // DT Cusomisation - Treat enter as a space, thus capitalising the start of paragraphs.
         return ' ';  // Space key.
-
+      
       case KC_QUOT:
         return '\'';  // Quote key.
     }
@@ -277,6 +286,3 @@ uint8_t layer_state_set_user(uint8_t state) {
   }
   return state;
 };
-
-
-
