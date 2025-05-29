@@ -130,27 +130,26 @@ void set_layer_color(int layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (biton32(layer_state)) {
+    // case 0:
+    //   set_layer_color(0);
+    //   break;
+    // case 1:
+    //   set_layer_color(1);
+    //   break;
+    // case 2:
+    //   set_layer_color(2);
+    //   break;
+    // case 3:
+    //   set_layer_color(3);
+    //   break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
   return true;
-  // if (keyboard_config.disable_layer_led) { return false; }
-  // switch (biton32(layer_state)) {
-  //   case 0:
-  //     set_layer_color(0);
-  //     break;
-  //   case 1:
-  //     set_layer_color(1);
-  //     break;
-  //   case 2:
-  //     set_layer_color(2);
-  //     break;
-  //   case 3:
-  //     set_layer_color(3);
-  //     break;
-  //  default:
-  //   if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-  //     rgb_matrix_set_color_all(0, 0, 0);
-  //   break;
-  // }
-  // return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
