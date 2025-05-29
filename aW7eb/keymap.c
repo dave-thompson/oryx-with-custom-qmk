@@ -5,6 +5,9 @@
 #include "features/sentence_case.h"
 #include "features/custom_shift_keys.h"
 #include "features/select_word.h"
+#include "features/swapper.h"
+
+bool cmd_tab_active = false;
 
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_DOT , KC_QUES}, // Shift . is ?
@@ -19,6 +22,7 @@ enum custom_keycodes {
   SELWFWD,
   SELWBAK,
   SELLINE,
+  SWAP_WIN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -56,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,
     KC_TRANSPARENT, LGUI(KC_N),     LGUI(KC_W),       LGUI(LCTL(KC_F)),              LGUI(KC_M),     LGUI(KC_I),     KC_TRANSPARENT,                KC_TRANSPARENT, SELLINE,        SELWBAK,        KC_UP,          SELWFWD,        LGUI(LCTL(KC_Q)), KC_TRANSPARENT,
     KC_TRANSPARENT, LGUI(KC_A),     LGUI(KC_X),       LGUI(KC_C),                    LGUI(KC_V),     LGUI(KC_B),                                                    KC_TAB,         KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_ENTER,         KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)), LALT(LGUI(LCTL(LSFT(KC_L)))),  LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                KC_TRANSPARENT, QK_LLCK,        LALT(KC_BSPC),  LGUI(KC_SPACE), KC_BSPC,        LGUI(KC_TAB),     KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)), LALT(LGUI(LCTL(LSFT(KC_L)))),  LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                KC_TRANSPARENT, QK_LLCK,        LALT(KC_BSPC),  LGUI(KC_SPACE), KC_BSPC,        SWAP_WIN,         KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,                KC_TRANSPARENT,                                                                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -166,13 +170,20 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Custom Stuff - Sentence Case
+
+  // Sentence Case
   if (!process_sentence_case(keycode, record)) { return false; }
 
-  // Custom Stuff - Custom Shift Keys
+  // Custom Shift Keys
   if (!process_custom_shift_keys(keycode, record)) { return false; }
 
-  // Custom Stuff - Select Word
+  // Swapper (Holds CMD between successive CMD-tabs, for Mac app switching)
+  update_swapper(
+        &sw_tab_active, KC_LGUI, KC_TAB, SWAP_WIN,
+        keycode, record
+    );
+
+  // Select Word
   if (!process_select_word(keycode, record)) { return false; }
 
   switch (keycode) {
