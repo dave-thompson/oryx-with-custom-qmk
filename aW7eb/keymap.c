@@ -3,7 +3,7 @@
 
 #include "features/sentence_case.h"
 #include "features/custom_shift_keys.h"
-#include "features/select_word.h"
+//#include "features/select_word.h" // TODO: Uncomment
 
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_DOT , KC_EXLM}, // Shift . is !
@@ -153,35 +153,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Custom Stuff - Sentence Case
   if (!process_sentence_case(keycode, record)) { return false; }
-  
-  // Custom Stuff - Select Word
-  if (!process_select_word(keycode, record)) { return false; }
 
-  switch (keycode) {
-    case SELWBAK:  // Backward word selection.
-      if (record->event.pressed) {
-        select_word_register('B');
-      } else {
-        select_word_unregister();
-      }
-      break;
+  // TODO: Uncomment block
+  // // Custom Stuff - Select Word
+  // if (!process_select_word(keycode, record)) { return false; }
 
-    case SELWFWD:  // Forward word selection.
-      if (record->event.pressed) {
-        select_word_register('W');
-      } else {
-        select_word_unregister();
-      }
-      break;
+  // switch (keycode) {
+  //   case SELWBAK:  // Backward word selection.
+  //     if (record->event.pressed) {
+  //       select_word_register('B');
+  //     } else {
+  //       select_word_unregister();
+  //     }
+  //     break;
 
-    case SELLINE:  // Line selection.
-      if(record->event.pressed) {
-        select_word_register('L');
-      } else {
-        select_word_unregister();
-      }
-      break;
-  }
+  //   case SELWFWD:  // Forward word selection.
+  //     if (record->event.pressed) {
+  //       select_word_register('W');
+  //     } else {
+  //       select_word_unregister();
+  //     }
+  //     break;
+
+  //   case SELLINE:  // Line selection.
+  //     if(record->event.pressed) {
+  //       select_word_register('L');
+  //     } else {
+  //       select_word_unregister();
+  //     }
+  //     break;
+  //}
 
   // Oryx Stuff
   switch (keycode) {
