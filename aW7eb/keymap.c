@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_N),     LGUI(KC_W),     LGUI(LCTL(KC_F)),LGUI(KC_M),     LGUI(KC_I),     KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_UP,          KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_N),     LGUI(KC_W),     LGUI(LCTL(KC_F)),LGUI(KC_M),     LGUI(KC_I),     KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_DOT,         KC_DOT,         KC_UP,          KC_DOT,         LGUI(LCTL(KC_Q)),KC_TRANSPARENT,
     KC_TRANSPARENT, LGUI(KC_A),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     LGUI(KC_B),                                                                     KC_TAB,         KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_ENTER,       KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)),LGUI(KC_TAB),   LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                                 KC_TRANSPARENT, QK_LLCK,        LALT(KC_BSPC),  LGUI(KC_SPACE), KC_BSPC,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)),LALT(LGUI(LCTL(LSFT(KC_L)))),LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                                 KC_TRANSPARENT, QK_LLCK,        LALT(KC_BSPC),  LGUI(KC_SPACE), KC_BSPC,        LGUI(KC_TAB),   KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -53,9 +53,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 const uint16_t PROGMEM combo0[] = { LGUI(KC_N), LGUI(KC_W), COMBO_END};
+const uint16_t PROGMEM combo1[] = { LGUI(KC_V), LGUI(KC_B), COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_UP, KC_DOT, COMBO_END};
+const uint16_t PROGMEM combo3[] = { KC_DOT, KC_UP, COMBO_END};
+const uint16_t PROGMEM combo4[] = { LGUI(KC_SPACE), KC_BSPC, COMBO_END};
+const uint16_t PROGMEM combo5[] = { LALT(KC_BSPC), LGUI(KC_SPACE), COMBO_END};
+const uint16_t PROGMEM combo6[] = { LGUI(KC_X), LGUI(KC_C), COMBO_END};
+const uint16_t PROGMEM combo7[] = { LGUI(KC_A), LGUI(KC_X), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
+    COMBO(combo1, LALT(LGUI(LSFT(KC_V)))),
+    COMBO(combo2, LCTL(KC_TAB)),
+    COMBO(combo3, LCTL(LSFT(KC_TAB))),
+    COMBO(combo4, LGUI(KC_GRAVE)),
+    COMBO(combo5, LGUI(LSFT(KC_GRAVE))),
+    COMBO(combo6, LGUI(KC_EQUAL)),
+    COMBO(combo7, LGUI(KC_MINUS)),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
