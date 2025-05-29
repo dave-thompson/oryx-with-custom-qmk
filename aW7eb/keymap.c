@@ -98,6 +98,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
+  debug_enable=true; // TODO: Remove
+  debug_matrix=true; // TODO: Remove
   rgb_matrix_enable();
 }
 
@@ -132,18 +134,18 @@ void set_layer_color(int layer) {
 bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    // case 0:
-    //   set_layer_color(0);
-    //   break;
-    // case 1:
-    //   set_layer_color(1);
-    //   break;
-    // case 2:
-    //   set_layer_color(2);
-    //   break;
-    // case 3:
-    //   set_layer_color(3);
-    //   break;
+    case 0:
+      set_layer_color(0);
+      break;
+    case 1:
+      set_layer_color(1);
+      break;
+    case 2:
+      set_layer_color(2);
+      break;
+    case 3:
+      set_layer_color(3);
+      break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
       rgb_matrix_set_color_all(0, 0, 0);
@@ -208,11 +210,11 @@ char sentence_case_press_user(uint16_t keycode,
     switch (keycode) {
       
       case KC_A ... KC_Z:
-        set_layer_color(0);
+        SEND_STRING("|  LETTER  |");
         return 'a';  // Letter key.
 
       case KC_DOT:  // . is punctuation, Shift . is a symbol (>)
-        set_layer_color(1);
+        SEND_STRING("|  KC_DOT  |");
         return !shifted ? '.' : '#';
       
       case KC_1:
