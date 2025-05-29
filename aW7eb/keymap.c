@@ -199,16 +199,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 char sentence_case_press_user(uint16_t keycode,
                               keyrecord_t* record,
-                              uint8_t mods) {
-  uprintf("SC Process KC: %i\n", keycode); // TODO: Remove
-  uprintf("KC as SInt: %i\n", keycode); // TODO: Remove
-  uprintf("KC as Chr: %c\n", keycode); // TODO: Remove
-  uprintf("KC as Dble: %lf\n", keycode); // TODO: Remove
-  uprintf("KC as Lng: %ld\n", keycode); // TODO: Remove
-  uprintf("KC as UInt: %u\n", keycode); // TODO: Remove
-  //uprintf("KC as Hex: %X\n", keycode); // TODO: Remove
-  //uprintf("KC as 2c Hex: %02x\n", keycode); // TODO: Remove
-  uprintf("KC as 4c Hex: %04x\n", keycode); // TODO: Remove
+                              uint8_t mods) {  
+  uprintf("SC key: %u\n", keycode); // TODO: Remove
+  uprintf("KC_EXLM is: %u\n", KC_EXLM); // TODO: Remove
+  uprintf("KC_QUES is: %u\n", KC_QUES); // TODO: Remove
 
   if ((mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
     const bool shifted = mods & MOD_MASK_SHIFT;
