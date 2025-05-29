@@ -67,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM combo0[] = { LGUI(KC_N), LGUI(KC_W), COMBO_END};
 const uint16_t PROGMEM combo1[] = { LGUI(KC_V), LGUI(KC_B), COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_UP, KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_DOT, KC_UP, COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_UP, SELWFWD, COMBO_END};
+const uint16_t PROGMEM combo3[] = { SELWBAK, KC_UP, COMBO_END};
 const uint16_t PROGMEM combo4[] = { LGUI(KC_SPACE), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo5[] = { LALT(KC_BSPC), LGUI(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM combo6[] = { LGUI(KC_X), LGUI(KC_C), COMBO_END};
