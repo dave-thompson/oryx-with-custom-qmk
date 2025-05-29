@@ -7,7 +7,7 @@
 #include "features/select_word.h"
 #include "features/swapper.h"
 
-bool cmd_tab_active = false;
+bool swap_win_active = false;
 
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_DOT , KC_QUES}, // Shift . is ?
@@ -179,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Swapper (Holds CMD between successive CMD-tabs, for Mac app switching)
   update_swapper(
-        &sw_tab_active, KC_LGUI, KC_TAB, SWAP_WIN,
+        &swap_win_active, KC_LGUI, KC_TAB, SWAP_WIN,
         keycode, record
     );
 
