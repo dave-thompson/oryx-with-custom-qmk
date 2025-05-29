@@ -200,27 +200,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 char sentence_case_press_user(uint16_t keycode,
                               keyrecord_t* record,
                               uint8_t mods) {
-  uprintf("kc: %s\n", keycode); // TODO: Remove
+  uprintf("SC Processing KC: %x\n", keycode); // TODO: Remove
   if ((mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
     const bool shifted = mods & MOD_MASK_SHIFT;
     switch (keycode) {
       
       case KC_A ... KC_Z:
-        SEND_STRING("|  LETTER  |");
+        uprintf("SC detected LETTER"); // TODO: Remove
         return 'a';  // Letter key.
 
       case KC_DOT:  // . is punctuation, Shift . is a symbol (>)
-        SEND_STRING("|  KC_DOT  |");
+        uprintf("SC detected DOT, either SHIFTED or UNSHIFTED"); // TODO: Remove
         return !shifted ? '.' : '#';
       
       case KC_1:
       case KC_SLSH:
-        set_layer_color(2);
+        uprintf("SC detected 1 or /, either SHIFTED or UNSHIFTED"); // TODO: Remove
         return shifted ? '.' : '#';
       
       case KC_EXLM:
       case KC_QUES:
-        set_layer_color(3);
+        uprintf("SC detected ! or ?"); // TODO: Remove
         return '.';
       
       case KC_2 ... KC_0:  // 2 3 4 5 6 7 8 9 0
