@@ -3,8 +3,7 @@
 
 #include "features/sentence_case.h"
 #include "features/custom_shift_keys.h"
-#include "print.h" // TODO: Uncomment
-//#include "features/select_word.h" // TODO: Uncomment
+#include "features/select_word.h"
 
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_DOT , KC_EXLM}, // Shift . is !
@@ -92,8 +91,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
-  debug_enable=true; // TODO: Remove
-  debug_matrix=true; // TODO: Remove
   rgb_matrix_enable();
 }
 
@@ -155,35 +152,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Custom Stuff - Custom Shift Keys
   if (!process_custom_shift_keys(keycode, record)) { return false; }
 
-  // TODO: Uncomment block
-  // // Custom Stuff - Select Word
-  // if (!process_select_word(keycode, record)) { return false; }
+  // Custom Stuff - Select Word
+  if (!process_select_word(keycode, record)) { return false; }
 
-  // switch (keycode) {
-  //   case SELWBAK:  // Backward word selection.
-  //     if (record->event.pressed) {
-  //       select_word_register('B');
-  //     } else {
-  //       select_word_unregister();
-  //     }
-  //     break;
+  switch (keycode) {
+    case SELWBAK:  // Backward word selection.
+      if (record->event.pressed) {
+        select_word_register('B');
+      } else {
+        select_word_unregister();
+      }
+      break;
 
-  //   case SELWFWD:  // Forward word selection.
-  //     if (record->event.pressed) {
-  //       select_word_register('W');
-  //     } else {
-  //       select_word_unregister();
-  //     }
-  //     break;
+    case SELWFWD:  // Forward word selection.
+      if (record->event.pressed) {
+        select_word_register('W');
+      } else {
+        select_word_unregister();
+      }
+      break;
 
-  //   case SELLINE:  // Line selection.
-  //     if(record->event.pressed) {
-  //       select_word_register('L');
-  //     } else {
-  //       select_word_unregister();
-  //     }
-  //     break;
-  //}
+    case SELLINE:  // Line selection.
+      if(record->event.pressed) {
+        select_word_register('L');
+      } else {
+        select_word_unregister();
+      }
+      break;
+  }
 
   // Oryx Stuff
   switch (keycode) {
@@ -199,15 +195,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 char sentence_case_press_user(uint16_t keycode,
                               keyrecord_t* record,
-                              uint8_t mods) {  
-  uprintf("SC key: %u\n", keycode); // TODO: Remove
+                              uint8_t mods) {
 
   if ((mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
     const bool shifted = mods & MOD_MASK_SHIFT;
     switch (keycode) {
       
       case KC_A ... KC_Z:
-        uprintf("SC: LTR"); // TODO: Remove
         return 'a';  // Letter key.
 
       case KC_DOT:  // . is punctuation, Shift . is a symbol (>)
