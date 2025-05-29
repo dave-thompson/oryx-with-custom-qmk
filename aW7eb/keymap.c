@@ -200,14 +200,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 char sentence_case_press_user(uint16_t keycode,
                               keyrecord_t* record,
                               uint8_t mods) {
-  uprintf("SC Processing KC: %i\n", keycode); // TODO: Remove
-  uprintf("KC as Signed Int: %i\n", keycode); // TODO: Remove
-  uprintf("KC as Char: %c\n", keycode); // TODO: Remove
-  uprintf("KC as Double: %lf\n", keycode); // TODO: Remove
-  uprintf("KC as Long: %ld\n", keycode); // TODO: Remove
-  uprintf("KC as Unsigned Int: %u\n", keycode); // TODO: Remove
-  uprintf("KC as Hex: %X\n", keycode); // TODO: Remove
-  uprintf("KC as 2c Hex: %02x\n", keycode); // TODO: Remove
+  uprintf("SC Process KC: %i\n", keycode); // TODO: Remove
+  uprintf("KC as SInt: %i\n", keycode); // TODO: Remove
+  uprintf("KC as Chr: %c\n", keycode); // TODO: Remove
+  uprintf("KC as Dble: %lf\n", keycode); // TODO: Remove
+  uprintf("KC as Lng: %ld\n", keycode); // TODO: Remove
+  uprintf("KC as UInt: %u\n", keycode); // TODO: Remove
+  //uprintf("KC as Hex: %X\n", keycode); // TODO: Remove
+  //uprintf("KC as 2c Hex: %02x\n", keycode); // TODO: Remove
   uprintf("KC as 4c Hex: %04x\n", keycode); // TODO: Remove
 
   if ((mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
@@ -215,21 +215,21 @@ char sentence_case_press_user(uint16_t keycode,
     switch (keycode) {
       
       case KC_A ... KC_Z:
-        uprintf("SC detected LETTER"); // TODO: Remove
+        uprintf("SC: LTR"); // TODO: Remove
         return 'a';  // Letter key.
 
       case KC_DOT:  // . is punctuation, Shift . is a symbol (>)
-        uprintf("SC detected DOT, either SHIFTED or UNSHIFTED"); // TODO: Remove
+        uprintf("SC: DOT, S/U"); // TODO: Remove
         return !shifted ? '.' : '#';
       
       case KC_1:
       case KC_SLSH:
-        uprintf("SC detected 1 or /, either SHIFTED or UNSHIFTED"); // TODO: Remove
+        uprintf("SC: 1 or /, S/U"); // TODO: Remove
         return shifted ? '.' : '#';
       
       case KC_EXLM:
       case KC_QUES:
-        uprintf("SC detected ! or ?"); // TODO: Remove
+        uprintf("SC: !/?"); // TODO: Remove
         return '.';
       
       case KC_2 ... KC_0:  // 2 3 4 5 6 7 8 9 0
