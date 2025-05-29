@@ -12,7 +12,7 @@ LTO_ENABLE = yes
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 EXTRAKEY_ENABLE = no
-ORYX_ENABLE = yes 
+ORYX_ENABLE = yes # Set to no to gain 1,006 bytes of firmware size, at the expense of losing live training in Keymapp
 UNICODE_ENABLE = no
 SWAP_HANDS_ENABLE= no
 
