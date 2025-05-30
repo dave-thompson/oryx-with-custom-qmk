@@ -8,7 +8,7 @@ bool process_switcher(
     uint16_t virtual_hold_key,
     uint16_t virtual_tap_key
 ) {
-    return process_switcher_with_secondary(keycode, record, mid_sequence, trigger_keycode, virtual_hold_key, virtual_tap_key, KC_NO, KC_NO);
+    return process_switcher_with_secondary(current_keycode, record, mid_sequence, trigger_keycode, virtual_hold_key, virtual_tap_key, KC_NO, KC_NO);
 }
 
 bool process_switcher_with_secondary(
