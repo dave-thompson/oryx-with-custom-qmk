@@ -181,7 +181,7 @@ bool rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-  // Swapper (Holds CMD between successive CMD-tabs, for Mac app switching)
+  // Switcher
   if(!process_switcher(keycode, record, &app_switch_active, APP_SWITCH, KC_LGUI, KC_TAB)) { return false; }
 
   // Sentence Case
