@@ -5,7 +5,7 @@
 #include "features/sentence_case.h"
 #include "features/custom_shift_keys.h"
 #include "features/select_word.h"
-#include "features/swapper.h"
+#include "features/switcher.h"
 
 bool app_switch_active = false;
 
