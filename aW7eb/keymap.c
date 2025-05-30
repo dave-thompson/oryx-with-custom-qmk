@@ -182,7 +182,7 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Switcher
-  if(!process_switcher(keycode, record, &app_switch_active, APP_SWITCH, KC_LGUI, KC_TAB)) { return false; }
+  if(!process_switcher_with_secondary(keycode, record, &app_switch_active, APP_SWITCH, KC_LGUI, KC_TAB, KC_LEFT, KC_Q)) { return false; }
 
   // Sentence Case
   if (!process_sentence_case(keycode, record)) { return false; }
