@@ -10,8 +10,8 @@
 bool app_switch_active = false;
 
 const custom_shift_key_t custom_shift_keys[] = {
-  {KC_DOT , KC_QUES}, // Shift . is ?
-  {KC_COMM, KC_EXLM}, // Shift , is !
+  {KC_COMM, KC_QUES}, // Shift , is ?
+  {KC_DOT , KC_EXLM}, // Shift . is !
   {KC_QUOTE, KC_DOUBLE_QUOTE}, // Shift ' is "
 };
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
