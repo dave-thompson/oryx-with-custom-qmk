@@ -4,7 +4,7 @@ bool process_switcher(
     uint16_t current_keycode,
     keyrecord_t *record
 ) {
-    return process_switcher_with_secondary(current_keycode, record, virtual_hold_key, virtual_tap_key, KC_NO, KC_NO);
+    return process_switcher_with_secondary(current_keycode, record, KC_NO, KC_NO);
 }
 
 bool process_switcher_with_secondary(
