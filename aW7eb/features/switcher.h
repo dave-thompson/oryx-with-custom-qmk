@@ -23,16 +23,15 @@
  */
 
 /**
- * Custom switcher action keys. The `keycode` field is the keycode as it appears in
+ * Custom switcher secondary keys. The `keycode` field is the keycode as it appears in
  * your layout and determines what is typed normally. The `virtual_keycode` is the
  * keycode that will be sent while in Switcher Mode.
  * 
  */
 typedef struct {
   uint16_t keycode;
-  uint16_t switcher_keycode;
+  uint16_t virtual_keycode;
 } switcher_key_t;
-
 
 /**
  * @brief Switcher trigger keycode
@@ -55,9 +54,9 @@ extern uint16_t SWITCHER_VIRTUAL_HOLD_KEY;
 extern uint16_t SWITCHER_VIRTUAL_TAP_KEY;
 
 /** Table of switcher secondary keys */
-extern const switcher_key_t switcher_keys[];
+extern const switcher_key_t switcher_secondary_keys[];
 /** Number of entries in the switcher_keys table */
-extern uint8_t NUM_SWITCHER_KEYS;
+extern uint8_t NUM_SWITCHER_SECONDARY_KEYS;
 
 /**
  * Handler function for switcher.
@@ -79,10 +78,3 @@ extern uint8_t NUM_SWITCHER_KEYS;
  * 
  */
 bool process_switcher(uint16_t current_keycode, keyrecord_t *record);
-
-bool process_switcher_with_secondary(
-    uint16_t current_keycode,
-    keyrecord_t *record,
-    uint16_t secondary_trigger_keycode,
-    uint16_t secondary_virtual_tap_key
-);

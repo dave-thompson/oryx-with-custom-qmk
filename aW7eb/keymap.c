@@ -25,14 +25,20 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 /** Switcher **/
-const switcher_key_t switcher_keys[] = {
-  {KC_LEFT, KC_Q}, // When switcher is active, tapping 'left' sends 'Q'
-};
-uint8_t NUM_SWITCHER_KEYS =
-    sizeof(switcher_keys) / sizeof(switcher_key_t);
 uint16_t SWITCHER_TRIGGER_KEYCODE = SWITCH;
 uint16_t SWITCHER_VIRTUAL_HOLD_KEY = KC_LGUI;
 uint16_t SWITCHER_VIRTUAL_TAP_KEY = KC_TAB;
+const switcher_key_t switcher_secondary_keys[] = {
+  // When switcher is active:
+  {KC_LEFT, KC_LEFT}, // 'left' functions as usual
+  {KC_RIGHT, KC_RIGHT}, // 'right' functions as usual
+  {KC_UP, KC_UP}, // 'up' functions as usual
+  {KC_DOWN, KC_DOWN}, // 'down' functions as usual
+  {KC_ENTER, KC_Q}, // 'enter' sends 'Q'
+  // All other keycodes exit the switcher
+};
+uint8_t NUM_SWITCHER_SECONDARY_KEYS =
+    sizeof(switcher_secondary_keys) / sizeof(switcher_key_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
@@ -184,7 +190,7 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Switcher
-  if(!process_switcher_with_secondary(keycode, record, KC_LGUI, KC_TAB)) { return false; }
+  if(!process_switcher(keycode, record)) { return false; }
 
   // Sentence Case
   if (!process_sentence_case(keycode, record)) { return false; }
