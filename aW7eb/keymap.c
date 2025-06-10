@@ -7,8 +7,15 @@
 #include "features/select_word.h"
 #include "features/switcher.h"
 
-bool app_switch_active = false;
+enum custom_keycodes {
+  RGB_SLD = EZ_SAFE_RANGE,
+  SELWFWD,
+  SELWBAK,
+  SELLINE,
+  SWITCH,
+};
 
+/** Custom Shift **/
 const custom_shift_key_t custom_shift_keys[] = {
   {KC_COMM, KC_QUES}, // Shift , is ?
   {KC_DOT , KC_EXLM}, // Shift . is !
@@ -17,13 +24,15 @@ const custom_shift_key_t custom_shift_keys[] = {
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
-enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
-  SELWFWD,
-  SELWBAK,
-  SELLINE,
-  APP_SWITCH,
+/** Switcher **/
+const switcher_key_t switcher_keys[] = {
+  {KC_LEFT, KC_Q}, // When switcher is active, tapping 'left' sends 'Q'
 };
+uint8_t NUM_SWITCHER_KEYS =
+    sizeof(switcher_keys) / sizeof(switcher_key_t);
+uint16_t SWITCHER_TRIGGER_KEYCODE = SWITCH;
+uint16_t SWITCHER_VIRTUAL_HOLD_KEY = KC_LGUI;
+uint16_t SWITCHER_VIRTUAL_TAP_KEY = KC_TAB;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
@@ -60,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,
     KC_TRANSPARENT, LGUI(KC_N),     LGUI(KC_W),       LGUI(LCTL(KC_F)),              LGUI(KC_M),     LGUI(KC_I),     KC_TRANSPARENT,                KC_TRANSPARENT, SELLINE,        SELWBAK,        KC_UP,          SELWFWD,        LGUI(LCTL(KC_Q)), KC_TRANSPARENT,
     KC_TRANSPARENT, LGUI(KC_A),     LGUI(KC_X),       LGUI(KC_C),                    LGUI(KC_V),     LGUI(KC_B),                                                    KC_TAB,         KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_ENTER,         KC_TRANSPARENT,
-    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)), KC_DOT,                        LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                KC_TRANSPARENT, QK_LLCK,        LALT(KC_BSPC),  LGUI(KC_SPACE), KC_BSPC,        APP_SWITCH,       KC_TRANSPARENT,
+    KC_TRANSPARENT, LGUI(KC_Z),     LGUI(LSFT(KC_Z)), KC_DOT,                        LGUI(KC_S),     LGUI(KC_U),     KC_TRANSPARENT,                KC_TRANSPARENT, QK_LLCK,        LALT(KC_BSPC),  LGUI(KC_SPACE), KC_BSPC,        SWITCH,           KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,                KC_TRANSPARENT,                                                                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,   KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT,
@@ -175,7 +184,7 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Switcher
-  if(!process_switcher_with_secondary(keycode, record, &app_switch_active, APP_SWITCH, KC_LGUI, KC_TAB, KC_LEFT, KC_Q)) { return false; }
+  if(!process_switcher_with_secondary(keycode, record, KC_LGUI, KC_TAB)) { return false; }
 
   // Sentence Case
   if (!process_sentence_case(keycode, record)) { return false; }

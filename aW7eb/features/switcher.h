@@ -22,22 +22,67 @@
  * the virtual_hold_key will be released as soon as the layer switch key is released.
  */
 
-bool process_switcher(
-    uint16_t current_keycode,
-    keyrecord_t *record,
-    bool *mid_sequence,
-    uint16_t trigger_keycode,
-    uint16_t virtual_hold_key,
-    uint16_t virtual_tap_key
-);
+/**
+ * Custom switcher action keys. The `keycode` field is the keycode as it appears in
+ * your layout and determines what is typed normally. The `virtual_keycode` is the
+ * keycode that will be sent while in Switcher Mode.
+ * 
+ */
+typedef struct {
+  uint16_t keycode;
+  uint16_t switcher_keycode;
+} switcher_key_t;
+
+
+/**
+ * @brief Switcher trigger keycode
+ *
+ * Create a custom keycode (e.g. `SWITCH`) in keymap.c. Use this keycode in your layout
+ * to trigger Switcher. Also define `SWITCHER_TRIGGER_KEYCODE` and assign it to your
+ * new keycode. For example:
+ *
+ *     enum custom_keycodes {
+ *       SWITCH = SAFE_RANGE,
+ *       // Other custom keys...
+ *     };
+ *
+ *     uint16_t SWITCHER_TRIGGER_KEYCODE = SWITCH;
+ */
+extern uint16_t SWITCHER_TRIGGER_KEYCODE;
+
+extern uint16_t SWITCHER_VIRTUAL_HOLD_KEY;
+
+extern uint16_t SWITCHER_VIRTUAL_TAP_KEY;
+
+/** Table of switcher secondary keys */
+extern const switcher_key_t switcher_keys[];
+/** Number of entries in the switcher_keys table */
+extern uint8_t NUM_SWITCHER_KEYS;
+
+/**
+ * Handler function for switcher.
+ *
+ * In keymap.c, call this function from your `process_record_user` function as follows.
+ * Process Switcher should be at the top of your 'process_record_user' function,
+ * or as a minimum above any other functions which process the same keycodes whenever
+ * Switcher is not active.
+ *
+ *     #include "features/switcher.h"
+ *
+ *     bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+ *       if (!process_switcher(keycode, record)) { return false; }
+ *       // Your macros ...
+ *
+ *       return true;
+ *     }
+ *
+ * 
+ */
+bool process_switcher(uint16_t current_keycode, keyrecord_t *record);
 
 bool process_switcher_with_secondary(
     uint16_t current_keycode,
     keyrecord_t *record,
-    bool *mid_sequence,
-    uint16_t trigger_keycode,
-    uint16_t virtual_hold_key,
-    uint16_t virtual_tap_key,
     uint16_t secondary_trigger_keycode,
     uint16_t secondary_virtual_tap_key
 );
