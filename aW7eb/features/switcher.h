@@ -1,6 +1,10 @@
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * Allows for Mac app switching (holding down cmd, then tab-ing multiple times)
@@ -29,8 +33,8 @@
  * 
  */
 typedef struct {
-  uint16_t keycode;
-  uint16_t virtual_keycode;
+    uint16_t keycode;
+    uint16_t virtual_keycode;
 } switcher_key_t;
 
 /**
@@ -78,3 +82,7 @@ extern uint8_t NUM_SWITCHER_SECONDARY_KEYS;
  * 
  */
 bool process_switcher(uint16_t current_keycode, keyrecord_t *record);
+
+#ifdef __cplusplus
+}
+#endif
