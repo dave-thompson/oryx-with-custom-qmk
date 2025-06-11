@@ -17,7 +17,6 @@ UNICODE_ENABLE = no
 SWAP_HANDS_ENABLE= no
 
 # Non-Oryx rules
-DEFERRED_EXEC_ENABLE = yes
 SRC += features/sentence_case.c
 SRC += features/custom_shift_keys.c
 SRC += features/select_word.c

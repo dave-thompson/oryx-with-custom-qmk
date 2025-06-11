@@ -1,4 +1,5 @@
 #include "switcher.h"
+#define SWITCHER_WINDOWS_OPEN_DELAY 500
 
 static bool switcher_active = false; // Is the app switcher in use?
 static bool windows_active = false; // Is the window switcher in use?
