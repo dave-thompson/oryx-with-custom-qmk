@@ -34,8 +34,10 @@ const switcher_key_t switcher_secondary_keys[] = {
   {KC_RIGHT, KC_RIGHT}, // 'right' functions as usual
   {KC_UP, KC_UP}, // 'up' functions as usual
   {KC_DOWN, KC_DOWN}, // 'down' functions as usual
-  {KC_ENTER, KC_Q}, // 'enter' sends 'Q'
-  // All other keycodes exit the switcher
+  {LGUI(KC_A), KC_Q}, // left pinky sends 'Q' to quit app
+  {LGUI(KC_V), KC_H}, // left index sends 'H' to hide app
+  {LGUI(KC_C), KC_DOT}, // left middle sends '.' to silently exit switcher
+  // All other keycodes both exit the switcher and send the keycode for processing
 };
 uint8_t NUM_SWITCHER_SECONDARY_KEYS =
     sizeof(switcher_secondary_keys) / sizeof(switcher_key_t);
